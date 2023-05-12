@@ -1,0 +1,9 @@
+import pymysql
+
+def save_transaction(transaction):
+    conn = pymysql.connect(host='localhost', user='root', password='PASSWORD', database='DATABASE_NAME')
+    cursor = conn.cursor()
+    sql = 'INSERT INTO transactions (tx_hash, from_address, to_address, value, timestamp) VALUES (%s, %s, %s, %s, %s)'
+    cursor.execute(sql, (transaction['hash'], transaction['from'], transaction['to'], transaction['value'], transaction['timestamp']))
+    conn.commit()
+    conn.close()
